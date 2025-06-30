@@ -73,8 +73,9 @@ export default (editor, opts = {}) => {
         }
 
         const addButton = (name, icon, title, exec, extra = {}) => {
+            const safeIcon = icon || `<div>${name}</div>`;
             rte.add(name, {
-                icon,
+                icon: safeIcon,
                 attributes: {
                     title: t(title),
                     ...extra,
