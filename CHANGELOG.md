@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.2...v1.0.3) (2025-06-30)
+
+### Bug Fixes
+
+* update icons styles ([54a66f0](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/54a66f011ace43d210ee117eba1bf76ae095d6f1))
+
 ## [1.0.2](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.1...v1.0.2) (2025-06-30)
 
 ### Bug Fixes
