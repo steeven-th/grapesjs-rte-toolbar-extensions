@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.0...v1.0.1) (2025-06-30)
+
+### Bug Fixes
+
+* icon is probably undefined ([08d0345](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/08d0345669dd5d47080ab99dca1a971702907dc9))
+
 ## 1.0.0 (2025-06-30)
 
 ### Features
