@@ -23,9 +23,9 @@
   "keywords": [
     "grapesjs",
     "plugin",
-    "object-fit",
-    "style",
-    "image",
+    "toolbar",
+    "rich text editor",
+    "rte",
     "steeven-th"
   ],
   "devDependencies": {
