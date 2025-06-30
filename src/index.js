@@ -72,10 +72,41 @@ export default (editor, opts = {}) => {
             !options.base.link && rte.remove("link");
         }
 
+        const defaultIcons = {
+            bold: "<b>B</b>",
+            italic: "<i>I</i>",
+            underline: "<u>U</u>",
+            strikethrough: "<s>S</s>",
+            link: "🔗",
+            heading1: "<div>H1</div>",
+            heading2: "<div>H2</div>",
+            heading3: "<div>H3</div>",
+            heading4: "<div>H4</div>",
+            heading5: "<div>H5</div>",
+            heading6: "<div>H6</div>",
+            paragraph: "¶",
+            quote: "❝",
+            indent: "➡️",
+            outdent: "⬅️",
+            subscript: "X<sub>2</sub>",
+            superscript: "X<sup>2</sup>",
+            uppercase: "<div>ABC</div>",
+            lowercase: "<div>abc</div>",
+            olist: "1.",
+            ulist: "•",
+            justifyLeft: "⬅",
+            justifyCenter: "↔",
+            justifyRight: "➡",
+            justifyFull: "↕",
+            line: "―",
+            undo: "↶",
+            redo: "↷",
+        };
+
         const addButton = (name, icon, title, exec, extra = {}) => {
-            const safeIcon = icon || `<div>${name}</div>`;
+            const htmlIcon = icon || defaultIcons[name] || `<div>${name}</div>`;
             rte.add(name, {
-                icon: safeIcon,
+                icon: htmlIcon,
                 attributes: {
                     title: t(title),
                     ...extra,
