@@ -1,3 +1,9 @@
+## [1.0.8](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.7...v1.0.8) (2025-07-01)
+
+### Bug Fixes
+
+* pass formatBlock value to rte.exec to enable heading and paragraph commands ([d7e24ae](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/d7e24ae9b124a2aaf8d4e1974f070f31863965fe))
+
 ## [1.0.7](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.6...v1.0.7) (2025-07-01)
 
 ### Bug Fixes
