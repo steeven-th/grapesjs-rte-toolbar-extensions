@@ -63,7 +63,7 @@ export default (editor, opts = {}) => {
         const newComp = parent.components().add({
             type: 'text',
             tagName: 'p',
-            classes: ['paragraph', 'paragraph-fixed'],
+            classes: ['paragraph'],
             components: children,
             attributes: { 'data-gjs-type': 'text' },
         }, { at: index });
@@ -76,8 +76,7 @@ export default (editor, opts = {}) => {
         if (
             comp &&
             comp.getEl().tagName === 'P' &&
-            comp.get('type') !== 'text' &&
-            !comp.getClasses().includes('paragraph-fixed')
+            comp.get('type') !== 'text'
         ) {
             transformParagraphToText(editor, comp);
         }
