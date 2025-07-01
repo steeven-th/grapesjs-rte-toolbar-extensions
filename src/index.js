@@ -82,11 +82,17 @@ export default (editor, opts = {}) => {
         }
     });
 
-    const addCommand = (name, title, command, fallbackIcon) => {
+    const addCommand = (name, title, command, fallbackIcon, value = null) => {
         rte.add(name, {
             icon: icons[name] || fallbackIcon || undefined,
             attributes: { title },
-            result: (rte) => rte.exec(command || name),
+            result: (rte) => {
+                if (value) {
+                    rte.exec(command, value);
+                } else {
+                    rte.exec(command || name);
+                }
+            },
         });
     };
 
@@ -167,14 +173,14 @@ export default (editor, opts = {}) => {
         });
 
         // Commandes de formatage
-        options.format?.heading1 && addCommand("heading1", t("heading1"), formatBlock, icons.heading1 || "<div>H1</div>");
-        options.format?.heading2 && addCommand("heading2", t("heading2"), formatBlock, icons.heading2 || "<div>H2</div>");
-        options.format?.heading3 && addCommand("heading3", t("heading3"), formatBlock, icons.heading3 || "<div>H3</div>");
-        options.format?.heading4 && addCommand("heading4", t("heading4"), formatBlock, icons.heading4 || "<div>H4</div>");
-        options.format?.heading5 && addCommand("heading5", t("heading5"), formatBlock, icons.heading5 || "<div>H5</div>");
-        options.format?.heading6 && addCommand("heading6", t("heading6"), formatBlock, icons.heading6 || "<div>H6</div>");
-        options.format?.paragraph && addCommand("paragraph", t("paragraph"), formatBlock, icons.paragraph || "&#182;");
-        options.format?.quote && addCommand("quote", t("quote"), formatBlock, icons.quote || '<i class="fa fa-quote-left"></i>');
+        options.format?.heading1 && addCommand("heading1", t("heading1"), formatBlock, icons.heading1 || "<div>H1</div>", "<h1>");
+        options.format?.heading2 && addCommand("heading2", t("heading2"), formatBlock, icons.heading2 || "<div>H2</div>", "<h2>");
+        options.format?.heading3 && addCommand("heading3", t("heading3"), formatBlock, icons.heading3 || "<div>H3</div>", "<h3>");
+        options.format?.heading4 && addCommand("heading4", t("heading4"), formatBlock, icons.heading4 || "<div>H4</div>", "<h4>");
+        options.format?.heading5 && addCommand("heading5", t("heading5"), formatBlock, icons.heading5 || "<div>H5</div>", "<h5>");
+        options.format?.heading6 && addCommand("heading6", t("heading6"), formatBlock, icons.heading6 || "<div>H6</div>", "<h6>");
+        options.format?.paragraph && addCommand("paragraph", t("paragraph"), formatBlock, icons.paragraph || "&#182;", "<p>");
+        options.format?.quote && addCommand("quote", t("quote"), formatBlock, icons.quote || '<i class="fa fa-quote-left"></i>', "<blockquote>");
 
         // Indent / Outdent
         options.indentOutdent && addCommand("indent", t("indent"), "indent", icons.indent || '<i class="fa fa-indent"></i>');
