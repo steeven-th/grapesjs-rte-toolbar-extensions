@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.6...v1.0.7) (2025-07-01)
+
+### Bug Fixes
+
+* paragraph-fixed class ([197d9bf](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/197d9bf6a7a84f64eeaf633edcef6d3eb8988535))
+
 ## [1.0.6](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.5...v1.0.6) (2025-07-01)
 
 ### Bug Fixes
