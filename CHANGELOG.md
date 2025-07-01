@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.3...v1.0.4) (2025-07-01)
+
+### Bug Fixes
+
+* update translations ([dc14307](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/dc1430728e9c303cb8577ee689810314b173facf))
+
 ## [1.0.3](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.2...v1.0.3) (2025-06-30)
 
 ### Bug Fixes
