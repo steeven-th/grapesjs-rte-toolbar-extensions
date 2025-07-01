@@ -27,6 +27,9 @@ export default (editor, opts = {}) => {
     const { icons } = options;
     const formatBlock = "formatBlock";
     const rte = editor.RichTextEditor;
+    const locales = { en, de, fr };
+    const lang = editor.I18n?.getLocale?.() || 'en';
+    const t = (key) => locales[lang]?.['grapesjs-rte-toolbar-extensions']?.[key] || key;
 
     const addCommand = (name, title, command, fallbackIcon) => {
         rte.add(name, {
@@ -62,11 +65,11 @@ export default (editor, opts = {}) => {
         fontNames && rte.add("fontName", {
             icon: fontNamesEl,
             event: "change",
-            attributes: { style: "padding: 0 4px 2px;", title: "Font Name" },
+            attributes: { style: "padding: 0 4px 2px;", title: t("fontName") },
             result: (rte, action) => rte.exec("fontName", action.btn.firstChild.value),
             update: (rte, action) => {
                 const value = rte.doc.queryCommandValue(action.name);
-                if (value != "false") action.btn.firstChild.value = value;
+                if (value !== "false") action.btn.firstChild.value = value;
             },
         });
 
@@ -81,18 +84,18 @@ export default (editor, opts = {}) => {
                 <option value="7">xx-large</option>
             </select>`,
             event: "change",
-            attributes: { style: "padding: 0 4px 2px;", title: "Font Size" },
+            attributes: { style: "padding: 0 4px 2px;", title: t("fontSize") },
             result: (rte, action) => rte.exec("fontSize", action.btn.firstChild.value),
             update: (rte, action) => {
                 const value = rte.doc.queryCommandValue(action.name);
-                if (value != "false") action.btn.firstChild.value = value;
+                if (value !== "false") action.btn.firstChild.value = value;
             },
         });
 
         // Span inline tool
         options.fonts?.span && rte.add("span", {
             icon: icons.span || "<div>Span</div>",
-            attributes: { title: "Wrap in span" },
+            attributes: { title: t("span") },
             result: (rte) => {
                 const sel = rte.doc.getSelection();
                 if (!sel.rangeCount) return;
@@ -113,39 +116,39 @@ export default (editor, opts = {}) => {
         });
 
         // Commandes de formatage
-        options.format?.heading1 && addCommand("heading1", "Heading 1", formatBlock, icons.heading1 || "<div>H1</div>");
-        options.format?.heading2 && addCommand("heading2", "Heading 2", formatBlock, icons.heading2 || "<div>H2</div>");
-        options.format?.heading3 && addCommand("heading3", "Heading 3", formatBlock, icons.heading3 || "<div>H3</div>");
-        options.format?.heading4 && addCommand("heading4", "Heading 4", formatBlock, icons.heading4 || "<div>H4</div>");
-        options.format?.heading5 && addCommand("heading5", "Heading 5", formatBlock, icons.heading5 || "<div>H5</div>");
-        options.format?.heading6 && addCommand("heading6", "Heading 6", formatBlock, icons.heading6 || "<div>H6</div>");
-        options.format?.paragraph && addCommand("paragraph", "Paragraph", formatBlock, icons.paragraph || "&#182;");
-        options.format?.quote && addCommand("quote", "Quote", formatBlock, icons.quote || '<i class="fa fa-quote-left"></i>');
+        options.format?.heading1 && addCommand("heading1", t("heading1"), formatBlock, icons.heading1 || "<div>H1</div>");
+        options.format?.heading2 && addCommand("heading2", t("heading2"), formatBlock, icons.heading2 || "<div>H2</div>");
+        options.format?.heading3 && addCommand("heading3", t("heading3"), formatBlock, icons.heading3 || "<div>H3</div>");
+        options.format?.heading4 && addCommand("heading4", t("heading4"), formatBlock, icons.heading4 || "<div>H4</div>");
+        options.format?.heading5 && addCommand("heading5", t("heading5"), formatBlock, icons.heading5 || "<div>H5</div>");
+        options.format?.heading6 && addCommand("heading6", t("heading6"), formatBlock, icons.heading6 || "<div>H6</div>");
+        options.format?.paragraph && addCommand("paragraph", t("paragraph"), formatBlock, icons.paragraph || "&#182;");
+        options.format?.quote && addCommand("quote", t("quote"), formatBlock, icons.quote || '<i class="fa fa-quote-left"></i>');
 
         // Indent / Outdent
-        options.indentOutdent && addCommand("indent", "Indent", "indent", icons.indent || '<i class="fa fa-indent"></i>');
-        options.indentOutdent && addCommand("outdent", "Outdent", "outdent", icons.outdent || '<i class="fa fa-outdent"></i>');
+        options.indentOutdent && addCommand("indent", t("indent"), "indent", icons.indent || '<i class="fa fa-indent"></i>');
+        options.indentOutdent && addCommand("outdent", t("outdent"), "outdent", icons.outdent || '<i class="fa fa-outdent"></i>');
 
         // Superscript / Subscript
-        options.subscriptSuperscript && addCommand("subscript", "Subscript", "subscript", icons.subscript || "<div>X<sub>2</sub></div>");
-        options.subscriptSuperscript && addCommand("superscript", "Superscript", "superscript", icons.superscript || "<div>X<sup>2</sup></div>");
+        options.subscriptSuperscript && addCommand("subscript", t("subscript"), "subscript", icons.subscript || "<div>X<sub>2</sub></div>");
+        options.subscriptSuperscript && addCommand("superscript", t("superscript"), "superscript", icons.superscript || "<div>X<sup>2</sup></div>");
 
         // Listes
-        options.list && addCommand("olist", "Ordered List", "insertOrderedList", icons.olist || '<i class="fa fa-list-ol"></i>');
-        options.list && addCommand("ulist", "Unordered List", "insertUnorderedList", icons.ulist || '<i class="fa fa-list-ul"></i>');
+        options.list && addCommand("olist", t("olist"), "insertOrderedList", icons.olist || '<i class="fa fa-list-ol"></i>');
+        options.list && addCommand("ulist", t("ulist"), "insertUnorderedList", icons.ulist || '<i class="fa fa-list-ul"></i>');
 
         // Alignement
-        options.align && addCommand("justifyLeft", "Align Left", "justifyLeft", icons.justifyLeft || '<i class="fa fa-align-left"></i>');
-        options.align && addCommand("justifyCenter", "Align Center", "justifyCenter", icons.justifyCenter || '<i class="fa fa-align-center"></i>');
-        options.align && addCommand("justifyRight", "Align Right", "justifyRight", icons.justifyRight || '<i class="fa fa-align-right"></i>');
-        options.align && addCommand("justifyFull", "Align Justify", "justifyFull", icons.justifyFull || '<i class="fa fa-align-justify"></i>');
+        options.align && addCommand("justifyLeft", t("justifyLeft"), "justifyLeft", icons.justifyLeft || '<i class="fa fa-align-left"></i>');
+        options.align && addCommand("justifyCenter", t("justifyCenter"), "justifyCenter", icons.justifyCenter || '<i class="fa fa-align-center"></i>');
+        options.align && addCommand("justifyRight", t("justifyRight"), "justifyRight", icons.justifyRight || '<i class="fa fa-align-right"></i>');
+        options.align && addCommand("justifyFull", t("justifyFull"), "justifyFull", icons.justifyFull || '<i class="fa fa-align-justify"></i>');
 
         // Extras
-        options.extra && addCommand("line", "Horizontal Line", "insertHorizontalRule", icons.line || "<b>&#8213;</b>");
+        options.extra && addCommand("line", t("line"), "insertHorizontalRule", icons.line || "<b>&#8213;</b>");
 
         options.extra && rte.add("uppercase", {
             icon: icons.uppercase || "<div>ABC</div>",
-            attributes: { title: "Uppercase" },
+            attributes: { title: t("uppercase") },
             result: (rte) => {
                 const sel = rte.doc.getSelection();
                 if (!sel.rangeCount) return;
@@ -160,7 +163,7 @@ export default (editor, opts = {}) => {
 
         options.extra && rte.add("lowercase", {
             icon: icons.lowercase || "<div>abc</div>",
-            attributes: { title: "Lowercase" },
+            attributes: { title: t("lowercase") },
             result: (rte) => {
                 const sel = rte.doc.getSelection();
                 if (!sel.rangeCount) return;
@@ -173,8 +176,8 @@ export default (editor, opts = {}) => {
             },
         });
 
-        options.undoredo && addCommand("undo", "Undo", "undo", icons.undo || '<i class="fa fa-reply"></i>');
-        options.undoredo && addCommand("redo", "Redo", "redo", icons.redo || '<i class="fa fa-share"></i>');
+        options.undoredo && addCommand("undo", t("undo"), "undo", icons.undo || '<i class="fa fa-reply"></i>');
+        options.undoredo && addCommand("redo", t("redo"), "redo", icons.redo || '<i class="fa fa-share"></i>');
     });
 
     editor.Commands.add('unwrap-span', {
@@ -202,7 +205,7 @@ export default (editor, opts = {}) => {
                 toolbar: [
                     { command: 'move', label: '<i class="fa fa-arrows-alt"></i>' },
                     { command: 'tlb-clone', label: '<i class="fa fa-clone"></i>' },
-                    { command: 'unwrap-span', label: '<i class="fa fa-ban"></i>', attributes: { title: 'Supprimer le SPAN' } },
+                    { command: 'unwrap-span', label: '<i class="fa fa-ban"></i>', attributes: { title: t("unwrapSpan") } },
                     { command: 'tlb-delete', label: '<i class="fa fa-trash"></i>' },
                 ],
             },
