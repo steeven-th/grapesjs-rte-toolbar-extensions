@@ -211,4 +211,10 @@ export default (editor, opts = {}) => {
             },
         },
     });
+
+    editor.I18n && editor.I18n.addMessages({
+        en,
+        fr,
+        de,
+    });
 };
