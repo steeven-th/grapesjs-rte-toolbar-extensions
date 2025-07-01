@@ -31,6 +31,58 @@ export default (editor, opts = {}) => {
     const lang = editor.I18n?.getLocale?.() || 'en';
     const t = (key) => locales[lang]?.['grapesjs-rte-toolbar-extensions']?.[key] || key;
 
+    function htmlToComponents(html) {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        const result = [];
+
+        div.childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                result.push({ type: 'textnode', content: node.textContent });
+            } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN') {
+                result.push({
+                    type: 'inline-span',
+                    attributes: { class: node.className },
+                    components: [{ type: 'textnode', content: node.textContent }]
+                });
+            } else {
+                result.push({ type: 'textnode', content: node.outerHTML });
+            }
+        });
+
+        return result;
+    }
+
+    function transformParagraphToText(editor, comp) {
+        const parent = comp.parent();
+        const index = parent.components().indexOf(comp);
+
+        const html = comp.getEl().innerHTML;
+        const children = htmlToComponents(html);
+
+        const newComp = parent.components().add({
+            type: 'text',
+            tagName: 'p',
+            classes: ['paragraph', 'paragraph-fixed'],
+            components: children,
+            attributes: { 'data-gjs-type': 'text' },
+        }, { at: index });
+
+        comp.remove();
+        editor.select(newComp);
+    }
+
+    editor.on('component:selected', comp => {
+        if (
+            comp &&
+            comp.getEl().tagName === 'P' &&
+            comp.get('type') !== 'text' &&
+            !comp.getClasses().includes('paragraph-fixed')
+        ) {
+            transformParagraphToText(editor, comp);
+        }
+    });
+
     const addCommand = (name, title, command, fallbackIcon) => {
         rte.add(name, {
             icon: icons[name] || fallbackIcon || undefined,
