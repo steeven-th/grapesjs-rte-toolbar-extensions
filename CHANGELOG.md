@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.5...v1.0.6) (2025-07-01)
+
+### Bug Fixes
+
+* auto-repair broken text blocks with inline spans ([e1559b4](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/commit/e1559b44b2820553362c4adb8d8d6f77ab24d107))
+
 ## [1.0.5](https://github.com/steeven-th/grapesjs-rte-toolbar-extensions/compare/v1.0.4...v1.0.5) (2025-07-01)
 
 ### Bug Fixes
